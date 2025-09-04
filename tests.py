@@ -12,7 +12,13 @@ def main():
     # print(pkg_contents)
     # pkg_contents = get_files_info(working_dir, "../")
     # print(pkg_contents)
-    print(get_file_content(working_dir, "lorem.txt"))
+
+    # print(get_file_content(working_dir, "lorem.txt"))
+
+    print(get_file_content(working_dir, "main.py"))
+    print(get_file_content(working_dir, "pkg/calculator.py"))
+    print(get_file_content(working_dir, "pkg/notexists.py"))
+    print(get_file_content(working_dir, "/bin/cat"))
 
 
 main()
