@@ -1,14 +1,15 @@
 import os
 import sys
+
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
-from functions.get_files_info import get_files_info
-from functions.get_files_info import schema_get_files_info
+
+from call_function import call_function
 from functions.get_file_content import schema_get_file_content
+from functions.get_files_info import get_files_info, schema_get_files_info
 from functions.run_python_file import schema_run_python_file
 from functions.write_file import schema_write_file
-from call_function import call_function
 
 
 def main():
@@ -21,14 +22,22 @@ def main():
     system_prompt = """
     You are a helpful AI coding agent.
 
-    When a user asks a question or makes a request, make a function call plan. You can perform the following operations:
+    When a user asks a question or makes a request,
+    make a function call plan. You can perform the following operations:
 
     - List files and directories
     - Read the contents of a file
     - write to a file (create or update)
     - Run a python file with optional arguments
 
-    All paths you provide should be relative to the working directory. You do not need to specify the working directory in your function calls as it is automatically injected for security reasons.
+    when the use ask about the code project - they are refering to working directory.
+    So, you should typically start by looking at the project's file, and figuring out
+    how to run the project and how to run its tests, you'll alaways want to test the tests and
+    the actual project. To verify that behavior is working.
+
+    All paths you provide should be relative to the working directory.
+    You do not need to specify the working directory in your function calls
+    as it is automatically injected for security reasons.
     """
 
     if len(sys.argv) < 2:
